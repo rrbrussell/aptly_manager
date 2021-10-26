@@ -17,6 +17,7 @@ struct CliArguments {
   control_file: PathBuf,
 }
 
+#[allow(dead_code)]
 struct DefaultOptions {
   architectures: Vec<String>,
   installer: bool,
@@ -24,6 +25,7 @@ struct DefaultOptions {
   udebs: bool,
 }
 
+#[allow(dead_code)]
 struct Distribution {
   architectures: Vec<String>,
   components: Vec<String>,
@@ -33,6 +35,7 @@ struct Distribution {
   uri: String,
 }
 
+#[allow(dead_code)]
 struct Prefix {
   architectures: Vec<String>,
   components: Vec<String>,
