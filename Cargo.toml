@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 structopt = { version = "0.3", features = [ "paw" ] }
 paw = "1.0"
+toml = "0.5"
+serde = { version = "1.0.0", features = ["derive"] }
