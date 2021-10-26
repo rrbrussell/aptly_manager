@@ -1,5 +1,20 @@
+use std::path::PathBuf;
+use structopt::StructOpt;
+
 fn main() {
-  println!("Hello, world!");
+  let cli_arguments = CliArguments::from_args();
+  println!("{:?}", cli_arguments);
+}
+
+#[derive(Debug, StructOpt)]
+#[structopt(
+  name = "aply_manager",
+  about = "Eases management of multiple aptly mirrrors."
+)]
+struct CliArguments {
+  /// The control file. Defaults to $HOME/.aptly_manager.toml .
+  #[structopt(parse(from_os_str), default_value = "$HOME/.aptly_manager.toml")]
+  control_file: PathBuf,
 }
 
 struct DefaultOptions {
