@@ -8,7 +8,7 @@
       "label": "Rust: cargo fmt - aptly_manager",
       "presentation": {
         "echo": true,
-        "reveal": "never",
+        "reveal": "always",
         "focus": false,
         "panel": "shared",
         "showReuseMessage": false,
