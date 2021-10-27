@@ -11,62 +11,69 @@
 //this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 //Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+use super::Architectures;
 use super::Distribution;
 use super::Prefix;
 use super::PrimaryOptions;
 
 pub fn initalize<'a>() -> Prefix<'a> {
-  let mut distributions: Vec<Distribution> = Vec::with_capacity(22);
-  distributions.append(&mut initalize_bookworm());
-  distributions.append(&mut initalize_bullseye());
-  distributions.append(&mut initalize_stable());
-  distributions.append(&mut initalize_testing());
+  let mut distributions: Vec<Distribution> = Vec::with_capacity(25);
+  distributions.append(&mut initalize_focal());
+  distributions.append(&mut initalize_groovy());
+  distributions.append(&mut initalize_hirsute());
+  distributions.append(&mut initalize_impish());
+  distributions.append(&mut initalize_jammy());
   let output: Prefix = Prefix {
-    components: vec!["contrib", "main", "non-free"],
+    components: vec!["main", "multiverse", "restricted", "universe"],
     distributions: distributions,
-    uri: "http://mirror.pit.teraswitch.com/debian/",
+    uri: "http://mirror.pit.teraswitch.com/ubuntu/",
   };
   return output;
 }
 
-fn initalize_bookworm<'a>() -> Vec<Distribution<'a>> {
+fn initalize_focal<'a>() -> Vec<Distribution<'a>> {
   let mut output: Vec<Distribution> = Vec::with_capacity(5);
   output.push(Distribution {
     components: None,
-    name: "bookworm",
+    name: "focal",
     options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
       ..Default::default()
     },
     uri: None,
   });
   output.push(Distribution {
     components: None,
-    name: "bookworm-backports",
+    name: "focal-backports",
     options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
       ..Default::default()
     },
     uri: None,
   });
   output.push(Distribution {
     components: None,
-    name: "bookworm-proposed-updates",
+    name: "focal-proposed",
     options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
       ..Default::default()
     },
     uri: None,
   });
   output.push(Distribution {
     components: None,
-    name: "bookworm-proposed-updates",
+    name: "focal-security",
     options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
       ..Default::default()
     },
     uri: None,
   });
   output.push(Distribution {
     components: None,
-    name: "bookworm-updates",
+    name: "focal-updates",
     options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
       ..Default::default()
     },
     uri: None,
@@ -74,117 +81,11 @@ fn initalize_bookworm<'a>() -> Vec<Distribution<'a>> {
   return output;
 }
 
-fn initalize_bullseye<'a>() -> Vec<Distribution<'a>> {
-  let mut output: Vec<Distribution> = Vec::with_capacity(6);
-  output.push(Distribution {
-    components: None,
-    name: "bullseye",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "bullseye-backports",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "bullseye-backports-sloppy",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "bullseye-proposed-updates",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "bullseye-proposed-updates",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "bullseye-updates",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  return output;
-}
-
-fn initalize_stable<'a>() -> Vec<Distribution<'a>> {
-  let mut output: Vec<Distribution> = Vec::with_capacity(6);
-  output.push(Distribution {
-    components: None,
-    name: "stable",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "stable-backports",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "stable-backports-sloppy",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "stable-proposed-updates",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "stable-proposed-updates",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "stable-updates",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  return output;
-}
-
-fn initalize_testing<'a>() -> Vec<Distribution<'a>> {
+fn initalize_groovy<'a>() -> Vec<Distribution<'a>> {
   let mut output: Vec<Distribution> = Vec::with_capacity(5);
   output.push(Distribution {
     components: None,
-    name: "testing",
+    name: "groovy",
     options: PrimaryOptions {
       ..Default::default()
     },
@@ -192,7 +93,7 @@ fn initalize_testing<'a>() -> Vec<Distribution<'a>> {
   });
   output.push(Distribution {
     components: None,
-    name: "testing-backports",
+    name: "groovy-backports",
     options: PrimaryOptions {
       ..Default::default()
     },
@@ -200,7 +101,7 @@ fn initalize_testing<'a>() -> Vec<Distribution<'a>> {
   });
   output.push(Distribution {
     components: None,
-    name: "testing-proposed-updates",
+    name: "groovy-proposed",
     options: PrimaryOptions {
       ..Default::default()
     },
@@ -208,7 +109,7 @@ fn initalize_testing<'a>() -> Vec<Distribution<'a>> {
   });
   output.push(Distribution {
     components: None,
-    name: "testing-proposed-updates",
+    name: "groovy-security",
     options: PrimaryOptions {
       ..Default::default()
     },
@@ -216,8 +117,148 @@ fn initalize_testing<'a>() -> Vec<Distribution<'a>> {
   });
   output.push(Distribution {
     components: None,
-    name: "testing-updates",
+    name: "groovy-updates",
     options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  return output;
+}
+
+fn initalize_hirsute<'a>() -> Vec<Distribution<'a>> {
+  let mut output: Vec<Distribution> = Vec::with_capacity(5);
+  output.push(Distribution {
+    components: None,
+    name: "hirsute",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "hirsute-backports",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "hirsute-proposed",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "hirsute-security",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "hirsute-updates",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  return output;
+}
+
+fn initalize_impish<'a>() -> Vec<Distribution<'a>> {
+  let mut output: Vec<Distribution> = Vec::with_capacity(5);
+  output.push(Distribution {
+    components: None,
+    name: "impish",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "impish-backports",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "impish-proposed",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "impish-security",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "impish-updates",
+    options: PrimaryOptions {
+      ..Default::default()
+    },
+    uri: None,
+  });
+  return output;
+}
+
+fn initalize_jammy<'a>() -> Vec<Distribution<'a>> {
+  let mut output: Vec<Distribution> = Vec::with_capacity(5);
+  output.push(Distribution {
+    components: None,
+    name: "jammy",
+    options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "jammy-backports",
+    options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "jammy-proposed",
+    options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "jammy-security",
+    options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
+      ..Default::default()
+    },
+    uri: None,
+  });
+  output.push(Distribution {
+    components: None,
+    name: "jammy-updates",
+    options: PrimaryOptions {
+      architectures: vec![Architectures::Amd64, Architectures::I386],
       ..Default::default()
     },
     uri: None,

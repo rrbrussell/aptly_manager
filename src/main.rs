@@ -11,14 +11,16 @@
 //this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 //Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-use aptly_lib::initalize_ubuntu;
+use aptly_lib::debian;
+use aptly_lib::ubuntu;
 use std::path::PathBuf;
 use structopt::StructOpt;
 
 fn main() {
   let _cli_arguments = CliArguments::from_args();
 
-  let _ubuntu = initalize_ubuntu();
+  let _ubuntu = ubuntu::initalize();
+  let _debian = debian::initalize();
 }
 
 #[derive(Debug, StructOpt)]
