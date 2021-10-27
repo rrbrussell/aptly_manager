@@ -1,2 +1,2 @@
-# aptly_manager
-My tool for automating the aptly tasks required to maintain my local debian and ubuntu mirrors.
+# aptly_lib
+The support library for aptly_manager.
