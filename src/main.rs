@@ -16,9 +16,41 @@ use std::path::PathBuf;
 use structopt::StructOpt;
 
 fn main() {
-  let cli_arguments = CliArguments::from_args();
-  println!("{:?}", cli_arguments);
+  let _cli_arguments = CliArguments::from_args();
+
+  /*
+  let mut test_parse: Table = toml::from_str(
+    r#"architectures= ['i386']
+    installer = false
+    sources = false
+    udebs = false
+    [debian]
+    installer = true
+    distributions = ['bullseye','bookworm']
+    components = ['main', 'contrib', 'non-free']
+    [debian.bullseye]
+    sources = true"#,
+  )
+  .unwrap();
+
+  let defaults: DefaultOptions = parse_default_options(&mut test_parse).unwrap();
+
+  println!("{:#?}", defaults);
+  println!("{:#?}", test_parse);
+  */
 }
+
+/*
+fn parse_default_options(input: &mut Table) -> Option<DefaultOptions> {
+  let mut options: DefaultOptions = Default::default();
+
+  if input.contains_key("architectures") {
+    if input.entry("architectures").
+  }
+
+  return Some(options);
+}
+*/
 
 #[derive(Debug, StructOpt)]
 #[structopt(
@@ -33,11 +65,23 @@ struct CliArguments {
 
 #[allow(dead_code)]
 #[derive(Deserialize, Serialize, Debug)]
+#[serde(default)]
 struct DefaultOptions {
   architectures: Vec<String>,
   installer: bool,
   sources: bool,
   udebs: bool,
+}
+
+impl Default for DefaultOptions {
+  fn default() -> Self {
+    DefaultOptions {
+      architectures: vec![String::from("amd64")],
+      installer: false,
+      sources: false,
+      udebs: false,
+    }
+  }
 }
 
 #[allow(dead_code)]
