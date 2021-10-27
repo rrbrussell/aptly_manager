@@ -14,6 +14,14 @@
         "showReuseMessage": false,
         "clear": false
       }
+    },
+    {
+      "type": "cargo",
+      "subcommand": "run",
+      "problemMatcher": [
+        "$rustc"
+      ],
+      "label": "Rust: cargo run - aptly_manager"
     }
   ]
 }

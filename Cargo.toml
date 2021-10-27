@@ -2,6 +2,11 @@
 name = "aptly_manager"
 version = "0.1.0"
 edition = "2021"
+license = "gpl-2.0-only"
+description = "A tool for managing debian mirrors. Uses aptly for the grunt work."
+readme = "README.md"
+repository = "https://github.com/rrbrussell/aptly_manager"
+publish = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
