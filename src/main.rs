@@ -13,14 +13,21 @@
 
 use aptly_lib::debian;
 use aptly_lib::ubuntu;
-use std::path::PathBuf;
+use aptly_lib::Prefix;
+use std::collections::HashMap;
+use string_template::Template;
 use structopt::StructOpt;
+
+const MIRROR_CREATE_STRING: &str =
+  "aptly mirror create {{options}} {{mirror_name}} {{url}} {{components}}";
 
 fn main() {
   let _cli_arguments = CliArguments::from_args();
 
   let _ubuntu = ubuntu::initalize();
+  create_mirrors(_ubuntu);
   let _debian = debian::initalize();
+  create_mirrors(_debian);
 }
 
 #[derive(Debug, StructOpt)]
@@ -28,10 +35,34 @@ fn main() {
   name = "aply_manager",
   about = "Eases management of multiple aptly mirrrors."
 )]
-struct CliArguments {
-  /// The control file. Defaults to $HOME/.aptly_manager.toml .
-  #[structopt(parse(from_os_str), default_value = "$HOME/.aptly_manager.toml")]
-  control_file: PathBuf,
+enum CliArguments {
+  #[structopt(name = "create_mirrors")]
+  /// Create the required mirrors.
+  CreateMirrors,
+}
+
+fn create_mirrors(set: Prefix) {
+  let create_command = Template::new(MIRROR_CREATE_STRING);
+  for distro in set.distributions.iter() {
+    let mut args = HashMap::<&str, &str>::new();
+    let a = distro.options.to_command_line_arguments();
+    args.insert("options", &a);
+    args.insert("mirror_name", distro.name);
+    if let Some(uri) = distro.uri {
+      args.insert("url", uri);
+    } else {
+      args.insert("url", set.uri);
+    }
+    let c;
+    if let Some(comps) = &distro.components {
+      c = comps.join(" ");
+      args.insert("components", &c);
+    } else {
+      c = set.components.join(" ");
+      args.insert("components", &c);
+    }
+    println!("{}", create_command.render(&args));
+  }
 }
 
 /*

@@ -26,6 +26,7 @@ pub fn initalize<'a>() -> Prefix<'a> {
   let output: Prefix = Prefix {
     components: vec!["main", "multiverse", "restricted", "universe"],
     distributions: distributions,
+    name: "ubuntu",
     uri: "http://mirror.pit.teraswitch.com/ubuntu/",
   };
   return output;

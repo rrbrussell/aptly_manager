@@ -11,6 +11,10 @@
 //this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 //Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+use std::string::ToString;
+use strum_macros::Display;
+use strum_macros::EnumString;
+
 pub mod debian;
 pub mod ubuntu;
 
@@ -27,7 +31,7 @@ mod tests {
 /// All is assumed.
 /// Ubuntu: amd64 arm64 armhf i386 ppc64el riscv64 s390x
 /// Debian: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x
-#[derive(Debug, strum_macros::EnumString, strum_macros::Display)]
+#[derive(Debug, EnumString, Display)]
 pub enum Architectures {
   #[strum(serialize = "amd64")]
   Amd64,
@@ -65,6 +69,31 @@ pub struct PrimaryOptions {
   pub udebs: bool,
 }
 
+impl PrimaryOptions {
+  pub fn to_command_line_arguments(&self) -> String {
+    let mut output = String::with_capacity(64);
+    output.push_str("-architectures=");
+    output.push_str(&self.architectures[0].to_string());
+    let mut i = 1;
+    while i < self.architectures.len() {
+      output.push(',');
+      output.push_str(&self.architectures[i].to_string());
+      i += 1;
+    }
+    output.push(' ');
+    if self.installer {
+      output.push_str("-with-installer ");
+    }
+    if self.sources {
+      output.push_str("-with-sources ");
+    }
+    if self.udebs {
+      output.push_str("-with-udebs");
+    }
+    return output;
+  }
+}
+
 impl Default for PrimaryOptions {
   fn default() -> Self {
     PrimaryOptions {
@@ -86,5 +115,6 @@ pub struct Distribution<'a> {
 pub struct Prefix<'a> {
   pub components: Vec<&'a str>,
   pub distributions: Vec<Distribution<'a>>,
+  pub name: &'a str,
   pub uri: &'a str,
 }

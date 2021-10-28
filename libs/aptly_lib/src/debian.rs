@@ -16,7 +16,7 @@ use super::Prefix;
 use super::PrimaryOptions;
 
 pub fn initalize<'a>() -> Prefix<'a> {
-  let mut distributions: Vec<Distribution> = Vec::with_capacity(22);
+  let mut distributions: Vec<Distribution> = Vec::with_capacity(18);
   distributions.append(&mut initalize_bookworm());
   distributions.append(&mut initalize_bullseye());
   distributions.append(&mut initalize_stable());
@@ -24,13 +24,14 @@ pub fn initalize<'a>() -> Prefix<'a> {
   let output: Prefix = Prefix {
     components: vec!["contrib", "main", "non-free"],
     distributions: distributions,
+    name: "debian",
     uri: "http://mirror.pit.teraswitch.com/debian/",
   };
   return output;
 }
 
 fn initalize_bookworm<'a>() -> Vec<Distribution<'a>> {
-  let mut output: Vec<Distribution> = Vec::with_capacity(5);
+  let mut output: Vec<Distribution> = Vec::with_capacity(4);
   output.push(Distribution {
     components: None,
     name: "bookworm",
@@ -57,14 +58,6 @@ fn initalize_bookworm<'a>() -> Vec<Distribution<'a>> {
   });
   output.push(Distribution {
     components: None,
-    name: "bookworm-proposed-updates",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
     name: "bookworm-updates",
     options: PrimaryOptions {
       ..Default::default()
@@ -75,7 +68,7 @@ fn initalize_bookworm<'a>() -> Vec<Distribution<'a>> {
 }
 
 fn initalize_bullseye<'a>() -> Vec<Distribution<'a>> {
-  let mut output: Vec<Distribution> = Vec::with_capacity(6);
+  let mut output: Vec<Distribution> = Vec::with_capacity(5);
   output.push(Distribution {
     components: None,
     name: "bullseye",
@@ -110,14 +103,6 @@ fn initalize_bullseye<'a>() -> Vec<Distribution<'a>> {
   });
   output.push(Distribution {
     components: None,
-    name: "bullseye-proposed-updates",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
     name: "bullseye-updates",
     options: PrimaryOptions {
       ..Default::default()
@@ -128,7 +113,7 @@ fn initalize_bullseye<'a>() -> Vec<Distribution<'a>> {
 }
 
 fn initalize_stable<'a>() -> Vec<Distribution<'a>> {
-  let mut output: Vec<Distribution> = Vec::with_capacity(6);
+  let mut output: Vec<Distribution> = Vec::with_capacity(5);
   output.push(Distribution {
     components: None,
     name: "stable",
@@ -163,14 +148,6 @@ fn initalize_stable<'a>() -> Vec<Distribution<'a>> {
   });
   output.push(Distribution {
     components: None,
-    name: "stable-proposed-updates",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
     name: "stable-updates",
     options: PrimaryOptions {
       ..Default::default()
@@ -181,7 +158,7 @@ fn initalize_stable<'a>() -> Vec<Distribution<'a>> {
 }
 
 fn initalize_testing<'a>() -> Vec<Distribution<'a>> {
-  let mut output: Vec<Distribution> = Vec::with_capacity(5);
+  let mut output: Vec<Distribution> = Vec::with_capacity(4);
   output.push(Distribution {
     components: None,
     name: "testing",
@@ -193,14 +170,6 @@ fn initalize_testing<'a>() -> Vec<Distribution<'a>> {
   output.push(Distribution {
     components: None,
     name: "testing-backports",
-    options: PrimaryOptions {
-      ..Default::default()
-    },
-    uri: None,
-  });
-  output.push(Distribution {
-    components: None,
-    name: "testing-proposed-updates",
     options: PrimaryOptions {
       ..Default::default()
     },
