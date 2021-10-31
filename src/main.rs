@@ -20,7 +20,7 @@ use structopt::StructOpt;
 
 // Command Lines
 const MIRROR_CREATE_STRING: &str =
-  "aptly mirror create {{options}} {{mirror_name}} {{url}} {{component}}";
+  "aptly mirror create {{options}} {{mirror_name}} {{url}} {{distro}} {{component}}";
 const MIRROR_UPDATE_STRING: &str = "aptly mirror update {{mirror_name}}";
 const DROP_SNAPSHOTS_STRING: &str = "aptly snapshot drop {{snapshot_name}}";
 const RENAME_SNAPSHOTS_STRING: &str =
@@ -314,6 +314,7 @@ fn create_mirrors(prefix: Prefix) {
       let mut command_args = HashMap::<&str, &str>::new();
       let options = distro.options.to_command_line_arguments();
       command_args.insert("options", &options);
+      command_args.insert("distro", &distro.name);
       command_args.insert("component", component);
       let mname = mirror_name.render(&name_args);
       command_args.insert("mirror_name", &mname);
